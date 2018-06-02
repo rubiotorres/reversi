@@ -27,15 +27,26 @@ private slots:
     void reset();
     void showAbout();
     void updateStatus(int oldplayer, int newplayer);
-    bool verticalpos(Cell* cell);
-    bool verticalneg(Cell* cell);
-    bool horizontalpos(Cell* cell);
-    bool horizontalneg(Cell* cell);
-    bool diagdirpos(Cell* cell);
-    bool diagdirneg(Cell* cell);
-    bool diagesqpos(Cell* cell);
-    bool diagesqneg(Cell* cell);
+    bool verticalpos(int coluna,int linha);
+    bool verticalneg(int coluna,int linha);
+    bool horizontalpos(int coluna,int linha);
+    bool horizontalneg(int coluna,int linha);
+    bool diagdirpos(int coluna,int linha);
+    bool diagdirneg(int coluna,int linha);
+    bool diagesqpos(int coluna,int linha);
+    bool diagesqneg(int coluna,int linha);
     bool verificalados(Cell* cell);
+    /*
+    bool verticalp(Cell* cell);
+    bool verticaln(Cell* cell);
+    bool horizontalp(Cell* cell);
+    bool horizontaln(Cell* cell);
+    bool diagdirp(Cell* cell);
+    bool diagdirn(Cell* cell);
+    bool diagesqp(Cell* cell);
+    bool diagesqn(Cell* cell);
+    bool fimdejogo();
+    bool verificafim(Cell* cell);*/
 
 };
 
