@@ -76,12 +76,12 @@ void Reversi::play() {
         if(verificalados(cell)){
             switch (player) {
                 case 1:
-                    cell->setPlayer(player);
+                    //cell->setPlayer(player);
                     player = 2;
                     break;
 
                 case 2:
-                    cell->setPlayer(player);
+                    //cell->setPlayer(player);
                     player = 1;
                     break;
 
@@ -118,13 +118,15 @@ void Reversi::showAbout() {
     QMessageBox::information(this, tr("Sobre"), tr("Reversi\n\nRenan Siman Claudino - renansiman22@gmail.com\nRubio Torres Castro Viana - rubiotorres15@gmail.com"));
 }
 bool Reversi::horizontalpos(int coluna,int linha){
-    if(m_cells[linha][coluna+1]->player()==player||
-       m_cells[linha][coluna+1]->player()==0){
-        return false;
+    if(coluna<7){
+        if(m_cells[linha][coluna+1]->player()==player||
+           m_cells[linha][coluna+1]->player()==0){
+            return false;
+        }
     }
     for(int j=coluna+2;j<8;j++){
         if(m_cells[linha][j]->player()==player){
-            for(int i=coluna;i<j;i++){
+            for(int i=coluna;i<=j;i++){
                 m_cells[linha][i]->setPlayer(player);
             }
             return true;
@@ -134,13 +136,15 @@ bool Reversi::horizontalpos(int coluna,int linha){
 
 }
 bool Reversi::horizontalneg(int coluna,int linha){
-    if(m_cells[linha][coluna-1]->player()==player||
-       m_cells[linha][coluna-1]->player()==0){
-        return false;
+    if(coluna>0){
+        if(m_cells[linha][coluna-1]->player()==player||
+           m_cells[linha][coluna-1]->player()==0){
+            return false;
+        }
     }
     for(int j=coluna-2;j>=0;j--){
         if(m_cells[linha][j]->player()==player){
-            for(int i=coluna;i>j;i--){
+            for(int i=coluna;i>=j;i--){
                 m_cells[linha][i]->setPlayer(player);
             }
             return true;
@@ -151,13 +155,15 @@ bool Reversi::horizontalneg(int coluna,int linha){
 }
 
 bool Reversi::verticalpos(int coluna,int linha){
-    if(m_cells[linha+1][coluna]->player()==player||
-       m_cells[linha+1][coluna]->player()==0){
-        return false;
+    if(linha<7){
+        if(m_cells[linha+1][coluna]->player()==player||
+           m_cells[linha+1][coluna]->player()==0){
+            return false;
+        }
     }
     for(int j=linha+2;j<8;j++){
         if(m_cells[j][coluna]->player()==player){
-            for(int i=linha;i<j;i++){
+            for(int i=linha;i<=j;i++){
                 m_cells[i][coluna]->setPlayer(player);
             }
             return true;
@@ -168,11 +174,13 @@ bool Reversi::verticalpos(int coluna,int linha){
 }
 
 bool Reversi::verticalneg(int coluna,int linha){
-    if(m_cells[linha-1][coluna]->player()==player||
-       m_cells[linha-1][coluna]->player()==0){
-        return false;
+    if(linha<7){
+        if(m_cells[linha-1][coluna]->player()==player||
+           m_cells[linha-1][coluna]->player()==0){
+            return false;
+        }
     }
-    for(int j=linha-2;j>=0;j++){
+    for(int j=linha-2;j>=0;j--){
         if(m_cells[j][coluna]->player()==player){
             for(int i=linha;i>=j;i--){
                 m_cells[i][coluna]->setPlayer(player);
@@ -184,13 +192,15 @@ bool Reversi::verticalneg(int coluna,int linha){
 
 }
 bool Reversi::diagesqneg(int coluna,int linha){
-    if(m_cells[linha-1][coluna+1]->player()==player||
-       m_cells[linha-1][coluna+1]->player()==0){
-        return false;
+    if(linha>0&&coluna<7){
+        if(m_cells[linha-1][coluna+1]->player()==player||
+           m_cells[linha-1][coluna+1]->player()==0){
+            return false;
+        }
     }
-    for(int j=linha-2, k=coluna+2;j>=0;j--,k++){
+    for(int j=linha-2, k=coluna+2;j>=0&&k<8;j--,k++){
         if(m_cells[j][k]->player()==player){
-            for(int i=linha, l=coluna;i>j;i--,l++){
+            for(int i=linha, l=coluna;i>=j;i--,l++){
                 m_cells[i][l]->setPlayer(player);
             }
             return true;
@@ -200,31 +210,44 @@ bool Reversi::diagesqneg(int coluna,int linha){
 
 }
 bool Reversi::diagesqpos(int coluna,int linha){
-    if(m_cells[linha+1][coluna+1]->player()==player||
-       m_cells[linha+1][coluna+1]->player()==0){
-        return false;
+    qDebug() << "linha: " << linha;
+    qDebug() << "coluna: " << coluna;
+    if(linha<7&&coluna>0){
+        if(m_cells[linha+1][coluna+1]->player()==player||
+           m_cells[linha+1][coluna+1]->player()==0){
+            return false;
+        }
     }
-    for(int j=linha+2, k=coluna+2;j<8;j++,k++){
+    for(int j=linha+2, k=coluna+2;j<8&&k<8;j++,k++){
+        qDebug() << "  j: " << j;
+        qDebug() << "  k: " << k;
+
         if(m_cells[j][k]->player()==player){
-            for(int i=linha, l=coluna;i<j;i++,l++){
+            for(int i=linha, l=coluna;i<=j;i++,l++){
+                qDebug() << "    i: " << i;
+                qDebug() << "    j: " << j;
+
                 m_cells[i][l]->setPlayer(player);
             }
             return true;
         }
     }
+    qDebug() << "terminou";
     return false;
 
 }
 
 
 bool Reversi::diagdirneg(int coluna,int linha){
-    if(m_cells[linha-1][coluna-1]->player()==player||
-       m_cells[linha-1][coluna-1]->player()==0){
-        return false;
+    if(coluna>0&&linha>0){
+        if(m_cells[linha-1][coluna-1]->player()==player||
+           m_cells[linha-1][coluna-1]->player()==0){
+            return false;
+        }
     }
-    for(int j=linha-2, k=coluna-2;j>=0;j--,k--){
+    for(int j=linha-2, k=coluna-2;j>=0&&k>=0;j--,k--){
         if(m_cells[j][k]->player()==player){
-            for(int i=linha, l=coluna;i>j;i--,l--){
+            for(int i=linha, l=coluna;i>=j;i--,l--){
                 m_cells[i][l]->setPlayer(player);
             }
             return true;
@@ -234,13 +257,15 @@ bool Reversi::diagdirneg(int coluna,int linha){
 
 }
 bool Reversi::diagdirpos(int coluna,int linha){
-    if(m_cells[linha+1][coluna-1]->player()==player||
-       m_cells[linha+1][coluna-1]->player()==0){
-        return false;
+    if(linha<7&&coluna>0){
+        if(m_cells[linha+1][coluna-1]->player()==player||
+           m_cells[linha+1][coluna-1]->player()==0){
+            return false;
+        }
     }
-    for(int j=linha+2, k=coluna-2;j<8;j++,k--){
+    for(int j=linha+2, k=coluna-2;j<8&& k>=0;j++,k--){
         if(m_cells[j][k]->player()==player){
-            for(int i=linha, l=coluna;i<j;i++,l--){
+            for(int i=linha, l=coluna;i<=j;i++,l--){
                 m_cells[i][l]->setPlayer(player);
             }
             return true;
@@ -253,6 +278,8 @@ bool Reversi::verificalados(Cell* cell){
     int coluna=cell->col();
     int linha=cell->row();
     int verifica=0;
+    qDebug() << player;
+
     if(this->verticalneg(coluna,linha)){
         verifica++;
     }
