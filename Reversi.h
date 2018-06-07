@@ -20,7 +20,8 @@ private:
     Ui::Reversi *ui;
     Cell* m_cells[8][8];
     int m_count[2];
-    int player = 1;
+    int player = 2;
+    int prox_play=1;
 
 private slots:
     void play();
@@ -36,17 +37,16 @@ private slots:
     bool diagesqpos(int coluna,int linha);
     bool diagesqneg(int coluna,int linha);
     bool verificalados(Cell* cell);
-    /*
-    bool verticalp(Cell* cell);
-    bool verticaln(Cell* cell);
-    bool horizontalp(Cell* cell);
-    bool horizontaln(Cell* cell);
-    bool diagdirp(Cell* cell);
-    bool diagdirn(Cell* cell);
-    bool diagesqp(Cell* cell);
-    bool diagesqn(Cell* cell);
+    bool verticalp(int coluna,int linha);
+    bool verticaln(int coluna,int linha);
+    bool horizontalp(int coluna,int linha);
+    bool horizontaln(int coluna,int linha);
+    bool diagdirp(int coluna,int linha);
+    bool diagdirn(int coluna,int linha);
+    bool diagesqp(int coluna,int linha);
+    bool diagesqn(int coluna,int linha);
     bool fimdejogo();
-    bool verificafim(Cell* cell);*/
+    bool verificafim(Cell* cell);
 
 };
 
