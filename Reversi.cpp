@@ -70,52 +70,36 @@ Reversi::~Reversi() {
 }
 
 void Reversi::play() {
-    switch (player) {
-        case 1:
-            prox_play = 2;
-            break;
-
-        case 2:
-            prox_play = 1;
-            break;
-
-        default:
-            break;
-    }
     Cell* cell = qobject_cast<Cell*>(QObject::sender());
     Q_ASSERT(cell != 0);
-    if(cell->player()==0&&fimdejogo()){
-        if(verificalados(cell)){
-            switch (player) {
-                case 1:
-                    //cell->setPlayer(player);
-                    player = 2;
-                    break;
+    if(cell->player()==0){
+            if(verificalados(cell)){
+                switch (player) {
+                    case 1:
+                        //cell->setPlayer(player);
+                        player = 2;
+                        break;
 
-                case 2:
-                    //cell->setPlayer(player);
-                    player = 1;
-                    break;
+                    case 2:
+                        //cell->setPlayer(player);
+                        player = 1;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
-
-        }
         else{
            qDebug()  <<"Não permitido";
         }
     }
-    else{
-
-        QMessageBox::information(this, tr("É O FIM"), tr("Reversi\n\nRenan Siman Claudino - renansiman22@gmail.com\nRubio Torres Castro Viana - rubiotorres15@gmail.com"));
-        reset();
-    }
-
-
     qDebug() << "Play on ("
              << cell->row() << ", "
              << cell->col() << ")";
+    if(!fimdejogo()){
+        QMessageBox::warning(this, tr("Fim de jogo"), tr("Ja era parceiro!!!"));
+        reset();
+    }
 }
 
 void Reversi::reset(){
