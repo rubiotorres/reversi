@@ -20,7 +20,7 @@ private:
     Ui::Reversi *ui;
     Cell* m_cells[8][8];
     int m_count[2];
-    int player = 2;
+    int player = 1;
 
 private slots:
     void play();

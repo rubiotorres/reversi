@@ -127,6 +127,7 @@ void Reversi::reset(){
     m_cells[3][4]->setPlayer(2);
     m_cells[4][3]->setPlayer(2);
     m_cells[4][4]->setPlayer(1);
+    player=1;
 
 }
 
