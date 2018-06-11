@@ -97,9 +97,24 @@ void Reversi::play() {
              << cell->row() << ", "
              << cell->col() << ")";
     if(!fimdejogo()){
-        QMessageBox::warning(this, tr("Fim de jogo"), tr("Ja era parceiro!!!"));
+        int vermelho=m_count[0];
+        int azul=m_count[1];
+        if(vermelho>azul){
+            QMessageBox::warning(this, tr("Fim de jogo"),
+                                 tr("Parabens!!!\nvitoria do jogador Vermelho."));
+        }
+        else if(vermelho<azul){
+            QMessageBox::warning(this, tr("Fim de jogo"), tr("Parabens!!!\n"
+                                                                     " vitoria do jogador Azul."));
+        }
+        else if(vermelho==azul){
+            QMessageBox::warning(this, tr("Fim de jogo"), tr("Empate!!!\n"
+                                                                     " Os jogadores possuem os mesmos pontos."));
+        }
+
         reset();
     }
+
 }
 
 void Reversi::reset(){
@@ -400,12 +415,12 @@ bool Reversi::verificafim(Cell* cell){
 }
 bool Reversi::horizontalp(int coluna,int linha){
     if(coluna<7){
-            if(m_cells[linha][coluna+1]->player()==prox_play||
+            if(m_cells[linha][coluna+1]->player()==player||
                m_cells[linha][coluna+1]->player()==0){
                 return false;
             }
         for(int j=coluna+2;j<8;j++){
-            if(m_cells[linha][j]->player()==prox_play){
+            if(m_cells[linha][j]->player()==player){
                 return true;
             }
             if(m_cells[linha][j]->player()==0){
@@ -417,12 +432,12 @@ bool Reversi::horizontalp(int coluna,int linha){
 }
 bool Reversi::horizontaln(int coluna,int linha){
     if(coluna>0){
-        if(m_cells[linha][coluna-1]->player()==prox_play||
+        if(m_cells[linha][coluna-1]->player()==player||
             m_cells[linha][coluna-1]->player()==0){
               return false;
          }
         for(int j=coluna-2;j>=0;j--){
-            if(m_cells[linha][j]->player()==prox_play){
+            if(m_cells[linha][j]->player()==player){
                 return true;
             }
             if(m_cells[linha][j]->player()==0){
@@ -434,13 +449,13 @@ bool Reversi::horizontaln(int coluna,int linha){
 }
 bool Reversi::verticalp(int coluna,int linha){
     if(linha<7){
-        if(m_cells[linha+1][coluna]->player()==prox_play||
+        if(m_cells[linha+1][coluna]->player()==player||
            m_cells[linha+1][coluna]->player()==0){
             return false;
         }
     }
     for(int j=linha+2;j<8;j++){
-        if(m_cells[j][coluna]->player()==prox_play){
+        if(m_cells[j][coluna]->player()==player){
              return true;
         }
         if(m_cells[j][coluna]->player()==0){
@@ -452,13 +467,13 @@ bool Reversi::verticalp(int coluna,int linha){
 
 bool Reversi::verticaln(int coluna,int linha){
     if(linha>0){
-            if(m_cells[linha-1][coluna]->player()==prox_play||
+            if(m_cells[linha-1][coluna]->player()==player||
                m_cells[linha-1][coluna]->player()==0){
                 return false;
             }
         for(int j=linha-2;j>=0;j--){
             qDebug()  <<"J:" <<j;
-            if(m_cells[j][coluna]->player()==prox_play){
+            if(m_cells[j][coluna]->player()==player){
                  return true;
             }
             if(m_cells[j][coluna]->player()==0){
@@ -470,12 +485,12 @@ bool Reversi::verticaln(int coluna,int linha){
 }
 bool Reversi::diagesqn(int coluna,int linha){
     if(linha>0&&coluna<7){
-            if(m_cells[linha-1][coluna+1]->player()==prox_play||
+            if(m_cells[linha-1][coluna+1]->player()==player||
                m_cells[linha-1][coluna+1]->player()==0){
                 return false;
             }
         for(int j=linha-2, k=coluna+2;j>=0&&k<8;j--,k++){
-            if(m_cells[j][k]->player()==prox_play){
+            if(m_cells[j][k]->player()==player){
                 return true;
             }
             if(m_cells[j][k]->player()==0){
@@ -487,12 +502,12 @@ bool Reversi::diagesqn(int coluna,int linha){
 }
 bool Reversi::diagesqp(int coluna,int linha){
     if(linha<7&&coluna<7){
-            if(m_cells[linha+1][coluna+1]->player()==prox_play||
+            if(m_cells[linha+1][coluna+1]->player()==player||
                m_cells[linha+1][coluna+1]->player()==0){
                 return false;
             }
         for(int j=linha+2, k=coluna+2;j<8&&k<8;j++,k++){
-            if(m_cells[j][k]->player()==prox_play){
+            if(m_cells[j][k]->player()==player){
                 return true;
             }
             if(m_cells[j][k]->player()==0){
@@ -506,12 +521,12 @@ bool Reversi::diagesqp(int coluna,int linha){
 
 bool Reversi::diagdirn(int coluna,int linha){
     if(coluna>0&&linha>0){
-            if(m_cells[linha-1][coluna-1]->player()==prox_play||
+            if(m_cells[linha-1][coluna-1]->player()==player||
                m_cells[linha-1][coluna-1]->player()==0){
                 return false;
             }
         for(int j=linha-2, k=coluna-2;j>=0&&k>=0;j--,k--){
-            if(m_cells[j][k]->player()==prox_play){
+            if(m_cells[j][k]->player()==player){
                 return true;
             }
             if(m_cells[j][k]->player()==0){
@@ -523,12 +538,12 @@ bool Reversi::diagdirn(int coluna,int linha){
 }
 bool Reversi::diagdirp(int coluna,int linha){
     if(linha<7&&coluna>0){
-            if(m_cells[linha+1][coluna-1]->player()==prox_play||
+            if(m_cells[linha+1][coluna-1]->player()==player||
                m_cells[linha+1][coluna-1]->player()==0){
                 return false;
             }
         for(int j=linha+2, k=coluna-2;j<8&& k>=0;j++,k--){
-            if(m_cells[j][k]->player()==prox_play){
+            if(m_cells[j][k]->player()==player){
                 return true;
             }
             if(m_cells[j][k]->player()==0){
@@ -563,6 +578,7 @@ void Reversi::updateStatus(int oldplayer, int newplayer) {
     ui->statusBar->showMessage(QString("Vermelho: %1 Vs Azul: %2")
                                .arg(m_count[0])
                                .arg(m_count[1]));
+
 
 }
 

@@ -21,7 +21,6 @@ private:
     Cell* m_cells[8][8];
     int m_count[2];
     int player = 2;
-    int prox_play=1;
 
 private slots:
     void play();
